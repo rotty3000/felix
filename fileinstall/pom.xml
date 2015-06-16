@@ -36,6 +36,9 @@
     <developerConnection>scm:svn:https://svn.apache.org/repos/asf/felix/trunk/fileinstall</developerConnection>
     <url>http://svn.apache.org/repos/asf/felix/fileinstall</url>
   </scm>
+  <properties>
+    <felix.java.version>7</felix.java.version>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>org.osgi</groupId>
