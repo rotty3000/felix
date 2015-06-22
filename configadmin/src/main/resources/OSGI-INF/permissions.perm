@@ -34,7 +34,8 @@
 
 # Manage configurations
 # -> ConfigurationAdminImpl
-(org.osgi.framework.AdminPermission "*" "metadata")
+(org.osgi.framework.AdaptPermission "*" "adapt")
+(org.osgi.framework.AdminPermission "*" "metadata,resolve,resource")
 (org.osgi.service.cm.ConfigurationPermission "*" "configure,target")
 
 # Handle persistent configuration files
@@ -47,4 +48,10 @@
 (org.osgi.framework.ServicePermission "org.apache.felix.cm.PersistenceManager" "register")
 
 # -> BaseTracker.getAccessControlContext
+(java.lang.RuntimePermission "getClassLoader")
 (java.lang.RuntimePermission "getProtectionDomain")
+(java.lang.RuntimePermission "setContextClassLoader")
+
+# Every bundle permissions
+(org.osgi.framework.BundlePermission "org.apache.felix.configadmin" "host,provide,require")
+(org.osgi.framework.CapabilityPermission "osgi.identity" "provide")

@@ -1,0 +1,54 @@
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Imported/Exported packages
+# -> MANIFEST.MF
+(org.osgi.framework.CapabilityPermission "osgi.extender" "provide")
+(org.osgi.framework.CapabilityPermission "osgi.service" "provide")
+(org.osgi.framework.PackagePermission "org.apache.felix.scr.component" "import,exportonly")
+(org.osgi.framework.PackagePermission "org.apache.felix.scr.info" "import,exportonly")
+(org.osgi.framework.PackagePermission "org.apache.felix.service.command" "import")
+(org.osgi.framework.PackagePermission "org.apache.felix.shell" "import")
+(org.osgi.framework.PackagePermission "org.osgi.dto" "import")
+(org.osgi.framework.PackagePermission "org.osgi.framework" "import")
+(org.osgi.framework.PackagePermission "org.osgi.framework.dto" "import")
+(org.osgi.framework.PackagePermission "org.osgi.framework.wiring" "import")
+(org.osgi.framework.PackagePermission "org.osgi.service.cm" "import")
+(org.osgi.framework.PackagePermission "org.osgi.service.component" "import,exportonly")
+(org.osgi.framework.PackagePermission "org.osgi.service.component.runtime" "import,exportonly")
+(org.osgi.framework.PackagePermission "org.osgi.service.component.runtime.dto" "import,exportonly")
+(org.osgi.framework.PackagePermission "org.osgi.service.log" "import")
+(org.osgi.framework.PackagePermission "org.osgi.service.metatype" "import")
+(org.osgi.framework.PackagePermission "org.osgi.service.packageadmin" "import")
+(org.osgi.framework.PackagePermission "org.osgi.util.function" "import,exportonly")
+(org.osgi.framework.PackagePermission "org.osgi.util.promise" "import,exportonly")
+(org.osgi.framework.PackagePermission "org.osgi.util.tracker" "import")
+
+
+# General bundle permissions
+(java.util.PropertyPermission "ds.*" "read")
+(java.lang.RuntimePermission "accessDeclaredMembers")
+(java.lang.RuntimePermission "getClassLoader")
+(java.lang.RuntimePermission "getProtectionDomain")
+(java.lang.management.ManagementPermission "monitor")
+(java.lang.reflect.ReflectPermission "suppressAccessChecks")
+
+(org.osgi.framework.AdaptPermission "*" "adapt")
+(org.osgi.framework.AdminPermission "(id=*)" "class,context,listener,metadata,resolve,resource")
+(org.osgi.framework.ServicePermission "*" "get,register")
+
+# Every bundle permissions
+(org.osgi.framework.BundlePermission "org.apache.felix.scr" "host,provide,require")
+(org.osgi.framework.CapabilityPermission "osgi.identity" "provide")
