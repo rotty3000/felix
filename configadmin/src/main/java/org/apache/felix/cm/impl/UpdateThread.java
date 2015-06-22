@@ -19,6 +19,10 @@
 package org.apache.felix.cm.impl;
 
 
+import java.security.AccessController;
+import java.security.PrivilegedActionException;
+import java.security.PrivilegedExceptionAction;
+
 import java.util.LinkedList;
 
 import org.osgi.service.log.LogService;
@@ -100,7 +104,7 @@ public class UpdateThread implements Runnable
                 configurationManager.log( LogService.LOG_DEBUG, "Running task {0}", new Object[]
                     { task } );
 
-                task.run();
+                run0(task);
             }
             catch ( Throwable t )
             {
@@ -111,6 +115,28 @@ public class UpdateThread implements Runnable
                 // reset the thread name to "idle"
                 Thread.currentThread().setName( workerBaseName );
             }
+        }
+    }
+
+    void run0(final Runnable task) throws Throwable {
+        if (System.getSecurityManager() != null) {
+            try {
+                AccessController.doPrivileged(
+                    new PrivilegedExceptionAction<Void>() {
+                        @Override
+                        public Void run() throws Exception {
+                            task.run();
+                            return null;
+                        }
+                    }
+                );
+            }
+            catch (PrivilegedActionException pae) {
+                throw pae.getException();
+            }
+        }
+        else {
+            task.run();
         }
     }
 

@@ -19,6 +19,8 @@
 package org.apache.felix.eventadmin.impl;
 
 
+import java.security.AccessController;
+import java.security.PrivilegedAction;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.StringTokenizer;
@@ -213,21 +215,37 @@ public class Configuration
     {
         // do this in the background as we don't want to stop
         // the config admin
-        new Thread()
-        {
-
-            @Override
-            public void run()
-            {
-                synchronized ( Configuration.this )
+        Runnable runnable = new Runnable() {
+            public void run() {
+                if ( System.getSecurityManager() != null )
                 {
-                    Configuration.this.configure( config );
-                    Configuration.this.startOrUpdate();
+                    AccessController.doPrivileged( new PrivilegedAction<Void>()
+                        {
+                            public Void run()
+                            {
+                                updateFromConfigAdmin0( config );
+                                return null;
+                            }
+                        }
+                    );
+                }
+                else
+                {
+                    updateFromConfigAdmin0( config );
                 }
             }
+        };
 
-        }.start();
+        new Thread(runnable).start();
 
+    }
+
+    void updateFromConfigAdmin0(final Dictionary<String, ?> config) {
+        synchronized ( Configuration.this )
+        {
+            Configuration.this.configure( config );
+            Configuration.this.startOrUpdate();
+        }
     }
 
     /**
